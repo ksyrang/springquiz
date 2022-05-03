@@ -12,7 +12,7 @@ import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 
 @Configuration
-@MapperScan(basePackages = {"com.care.quiz.membership.dao"})
+@MapperScan(basePackages = {"com.care.quiz.membership.dao", "com.care.quiz.login.dao"})
 
 public class DBconfig {
 	

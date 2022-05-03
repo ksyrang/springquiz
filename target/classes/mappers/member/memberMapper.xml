@@ -3,7 +3,6 @@
 <mapper namespace="com.care.quiz.membership.dao.IMemberDAO">
 
 
-	
 	<insert id="insertLogin" parameterType="com.care.quiz.membership.dto.LoginDTO">
 		INSERT INTO login VALUES(#{id},#{pw})
 	</insert>
@@ -11,13 +10,21 @@
 		INSERT INTO member VALUES(#{id},#{gender},#{email})
 	</insert>
 	<insert id="insertPost" parameterType="com.care.quiz.membership.dto.PostDTO">
-		INSERT INTO post VALUES(#{id},#{postcode},#{addr1},#{addr2})
+		INSERT INTO post VALUES(#{id},#{zipcode},#{addr1},#{addr2})
 	</insert>
 	
-	
+	<!-- id_info -->
 	<select id="IsExistId" resultType="String" parameterType="String" >
 		SELECT id FROM login WHERE id = #{id}
 	</select>
+	<!-- id를 찾는게 아닌 회신된 갯수를 이용하여 아이디의 존재 여부를 확인 할수 있는 코드 
+	<select id="IsExistId" resultType="int" parameterType="String" >
+		SELECT count(*) FROM login WHERE id = #{id}
+	</select>
+	 -->
+	<!-- member_info -->
+
+	<!-- post_info -->
 
 
 

@@ -2,15 +2,15 @@ package com.care.quiz.membership.dto;
 
 public class PostDTO extends LoginDTO {
 	
-	private String postcode;
+	private String zipcode;
 	private String addr1;
 	private String addr2;
 
-	public String getPostcode() {
-		return postcode;
+	public String getZipcode() {
+		return zipcode;
 	}
-	public void setPostcode(String postcode) {
-		this.postcode = postcode;
+	public void setZipcode(String zipcode) {
+		this.zipcode = zipcode;
 	}
 	public String getAddr1() {
 		return addr1;

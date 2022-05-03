@@ -1,21 +1,21 @@
 package com.care.quiz;
 
-import java.text.DateFormat;
-import java.util.Date;
-import java.util.Locale;
+
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 //쉐러링 완료
 @Controller
 public class HomeController {
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
+
+	@Autowired HttpSession session;
 	/*
 	 * http://localhost:8085/quiz/
 	 */
@@ -30,20 +30,22 @@ public class HomeController {
 	public void index(Model model, String formpath) {
 		model.addAttribute("formpath", formpath);
 	}		
-	@GetMapping("home")
+	@RequestMapping("home")
 	public void home() {	}
 	
 
-	@GetMapping("login")
+	@RequestMapping("login")
 	public String login() {
 		return "member/loginForm";
 	}	
-	@GetMapping("member")
+	@RequestMapping("member")
 	public String member() {
 		return "member/memberForm";
 	}	
-	@GetMapping("board")
+	@RequestMapping("board")
 	public String board() {
 		return "board/boardForm";
 	}	
+
+	
 }

@@ -17,39 +17,53 @@ import com.care.quiz.membership.service.MemberServiceImpl;
 
 @Controller
 public class MemberController {
+	
 	@Autowired HttpSession session;
-	@Autowired MemberServiceImpl memberService;
+	@Autowired private MemberServiceImpl memberService;
 	
 	
 	@ResponseBody
-	@PostMapping(value="idcheck", produces = "text/html; charset=UTF-8")
-	public String idCheck(@RequestBody (required = false)String id) {
-		System.out.println("Post method idCheck");
-		if(id == null||id.isEmpty()){
-			return "아이디를 입력하세요";
-		}else {
-			if(memberService.IsExistId(id)) {
-				session.setAttribute("idcheck", true);
-				return "등록 가능";
-			}else {
-				session.setAttribute("idcheck", false);
-				return "등록된 아이디";
-			}
-		}
+	@PostMapping(value="isExistId", produces = "text/html; charset=UTF-8")
+	public String isExistId(@RequestBody (required = false)String id) {
+	
+		return memberService.IsExistId(id);
+		
+		/*
+		 * System.out.println("Post method idCheck"); String result; if(id ==
+		 * null||id.isEmpty()){ result = "아이디를 입력하세요"; }else {
+		 * if(memberService.IsExistId(id)) { session.setAttribute("idcheck", true);
+		 * result = "등록 가능"; }else { session.setAttribute("idcheck", false); result =
+		 * "등록된 아이디"; } }
+		 * System.out.println("idCheck : "+session.getAttribute("idcheck")); return
+		 * result;
+		 */
 	}
+	
+	@ResponseBody
+	@PostMapping(value="sendAuth", produces = "text/html; charset=UTF-8")
+	public String sendAuth(@RequestBody (required = false)String email) {
+		return memberService.sendAuth(email);
+	}
+	
+	@ResponseBody
+	@PostMapping(value="checkAuth", produces = "text/html; charset=UTF-8")
+	public String checkAuth(@RequestBody (required = false)String authNum) {
+		return memberService.checkAuth(authNum);
+	}
+	
+	
 	
 	@PostMapping("insert")
 	public String insert(MemberDTO member,PostDTO post, Model model) {
-		System.out.println("insert processing");
-		session.invalidate();
+		
 		int result = memberService.memberProc(member, post);
-		System.out.println("memberProc line pass");
-		System.out.println("memberProc result : " + result);
+//		System.out.println("memberProc line pass");
+//		System.out.println("memberProc result : " + result);
 		
 		switch (result) {
 			case 1: //등록 성공
 				model.addAttribute("formpath", "login");
-				return "index";
+				return "forward:index?formpath=home";
 			case 2://아이디 중복 미확인
 				model.addAttribute("msg", "아이디 중복 여부를 확인하세요");
 				break;

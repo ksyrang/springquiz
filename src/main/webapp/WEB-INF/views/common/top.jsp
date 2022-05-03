@@ -10,14 +10,22 @@ a:active{color:#ff00cc; text-decoration:underline; }
 -->
 </style>
 
-<c:url var="root" value="/"/>
+<c:url var="root" value="/"/><!-- a태그는 무조건 상대경로로 찾아가기 때문에 /를 사용하면 contextroot의 최상의 경로의 절대 경로를 지정하기 때문에 다른 프로젝트에서도 추가적인 수정 없이 사용 가능 -->
 <table width=800>
 	<tr><td align="center" colspan=5><h1>CARE Lab</h1></td></tr>
 	<tr align="right">
 		<td width=600></td>
 		<td><a href="${root }index?formpath=home">홈</a></td>
-		<td><a href="${root }index?formpath=login">로그인</a></td>
-		<td><a href="${root }index?formpath=member">회원가입</a></td>
+		<c:choose>
+			<c:when test="${empty sessionScope.id }">
+				<td><a href="${root }index?formpath=login">로그인</a></td>
+				<td><a href="${root }index?formpath=member">회원가입</a></td>
+			</c:when>	
+			<c:otherwise>
+				<td><a href="${root }logout">로그 아웃</a></td><!-- index가 있는 homecontroller가 아닌 logincontroller로 가기위함 -->
+			</c:otherwise>
+		</c:choose>
+		
 		<td><a href="${root }index?formpath=board">게시판</a></td>
 	</tr>
 	<tr><td align="center" colspan=5><hr/></td></tr>
