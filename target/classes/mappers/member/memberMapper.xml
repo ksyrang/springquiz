@@ -2,16 +2,33 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.care.quiz.membership.dao.IMemberDAO">
 
-
+	<!-- login insert -->
 	<insert id="insertLogin" parameterType="com.care.quiz.membership.dto.LoginDTO">
 		INSERT INTO login VALUES(#{id},#{pw})
 	</insert>
+	<!-- member insert -->
 	<insert id="insertMember" parameterType="com.care.quiz.membership.dto.MemberDTO">
 		INSERT INTO member VALUES(#{id},#{gender},#{email})
 	</insert>
+	<!-- post insert -->
 	<insert id="insertPost" parameterType="com.care.quiz.membership.dto.PostDTO">
 		INSERT INTO post VALUES(#{id},#{zipcode},#{addr1},#{addr2})
 	</insert>
+	<!-- 강사님의 코드 -->
+	<!-- 강사님의 경우 인덱스 개념의 no를 만듬, no의 최대값을 확인하고 최대 값이 null이면 0을 
+			null이 아니면 결과값에 +1을 하여 post 테이블에 저장하는 흐름을 만들어 향후 통계 또는 검색효율을 올리기 위함
+	<insert id="insertPost" parameterType="com.care.quiz.membership.dto.MemberDTO">
+		selectkey 메소드를 검색하고 다음 no값을 결정하는 코드
+		<selectKey keyProperty="no" resultType="int" order="BEFORE">
+			SELECT nvl(max(no), 0)+1 FROM postcode
+		</selectKey>
+		결정되 no값과 함께 post 테이블에 데이터를 insert
+		INSERT INTO postcode VALUES(#{no}, #{zipcode}, #{addr1}, #{addr2}, #{id} )
+	</insert>
+	
+	
+	
+	 -->
 	
 	<!-- id_info -->
 	<select id="IsExistId" resultType="String" parameterType="String" >
@@ -22,6 +39,16 @@
 		SELECT count(*) FROM login WHERE id = #{id}
 	</select>
 	 -->
+<!--  	<select id="selectpostAll" resultType="com.care.quiz.membership.dto.PostDTO" >
+		SELECT * FROM post
+	</select>
+	-->
+	
+	<select id="selectmemberAll" resultType="com.care.quiz.membership.dto.MemberDTO" >
+		SELECT * FROM member
+	</select> 
+	 
+	 
 	<!-- member_info -->
 
 	<!-- post_info -->

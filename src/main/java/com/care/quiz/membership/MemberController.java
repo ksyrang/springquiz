@@ -22,7 +22,7 @@ public class MemberController {
 	@Autowired private MemberServiceImpl memberService;
 	
 	
-	@ResponseBody
+	@ResponseBody//페이지의 이동 없이 비동기 통신을 진행하려면 필요한 언옵테이션(AJAX)
 	@PostMapping(value="isExistId", produces = "text/html; charset=UTF-8")
 	public String isExistId(@RequestBody (required = false)String id) {
 	

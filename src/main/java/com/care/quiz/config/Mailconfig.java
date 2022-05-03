@@ -1,4 +1,4 @@
-package com.care.quiz.membership;
+package com.care.quiz.config;
 
 import java.util.Properties;
 

@@ -1,5 +1,6 @@
 package com.care.quiz.membership.service;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 import javax.mail.MessagingException;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import com.care.quiz.membership.dao.IMemberDAO;
 import com.care.quiz.membership.dto.PostDTO;
+import com.care.quiz.membership.dto.AllDTO;
 import com.care.quiz.membership.dto.LoginDTO;
 import com.care.quiz.membership.dto.MemberDTO;
 
@@ -113,7 +115,29 @@ public class MemberServiceImpl implements IMemberService  {
 		return 1;//등록 완료
 	}
 	
+	@Override
+	public ArrayList<MemberDTO> memberList() {
+		ArrayList<MemberDTO> list = memberDAO.selectmemberAll();
+		return list;
+	}
 
+	public AllDTO userinfo(String id) {
+		AllDTO user = new AllDTO();
+		MemberDTO member = memberDAO.selectmemberInfo(id);
+		PostDTO post = memberDAO.selectpostInfo(id);
+		if(member != null) {
+			user.setId(member.getId());
+			user.setEmail(member.getEmail());
+			user.setGender(member.getGender());
+		}
+		if(post != null) {
+			user.setZipcode(post.getZipcode());
+			user.setAddr1(post.getAddr1());
+			user.setAddr2(post.getAddr2());
+		}
+			
+		return user;
+	}
 
 	
 

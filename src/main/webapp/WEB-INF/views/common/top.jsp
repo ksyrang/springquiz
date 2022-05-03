@@ -14,7 +14,7 @@ a:active{color:#ff00cc; text-decoration:underline; }
 <table width=800>
 	<tr><td align="center" colspan=5><h1>CARE Lab</h1></td></tr>
 	<tr align="right">
-		<td width=600></td>
+		<td width=500></td>
 		<td><a href="${root }index?formpath=home">홈</a></td>
 		<c:choose>
 			<c:when test="${empty sessionScope.id }">
@@ -23,6 +23,7 @@ a:active{color:#ff00cc; text-decoration:underline; }
 			</c:when>	
 			<c:otherwise>
 				<td><a href="${root }logout">로그 아웃</a></td><!-- index가 있는 homecontroller가 아닌 logincontroller로 가기위함 -->
+				<td><a href="${root }memberListProc">회원목록</a></td><!-- href="${root }memberListProc"  / href="${root }memberlist" / href="${root }index?formpath=memberlist"  -->
 			</c:otherwise>
 		</c:choose>
 		
